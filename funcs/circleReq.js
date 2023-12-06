@@ -48,6 +48,7 @@ const getTimeSeriesIntraday = async(val) => {
 }
 const circleReq = {
     init:()=>{
+        getTimeSeriesIntraday(15);
         cron.schedule('*/15 * * * *', () => {
             var d = new Date();
             console.log(`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
