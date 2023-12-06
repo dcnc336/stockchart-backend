@@ -20,7 +20,7 @@ const options = {
 const getTimeSeriesIntraday = async() => {
     try {
         const response = await axios.request(options);
-        console.log(response.data);
+        // socketIO.getInstance().
     } catch (error) {
         console.error(error);
     }
