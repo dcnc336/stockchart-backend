@@ -6,7 +6,6 @@ const socket = {
         
         socketIO.on('connection', async (socket) => {
             console.log(`Incoming connection from ${socket.id}`);
-            
             socket.on('disconnect', async () => {
                 console.log(`Client disconnected: ${socket.id}`);
             });
