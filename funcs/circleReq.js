@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cron = require('node-cron');
 const socketIO = require('./socketIO');
+const services = require('./../services')
 
 
 /******************************************** daily options ****************************************************/ 
@@ -39,8 +40,30 @@ const getTimeSeriesIntraday = async(val) => {
     };
     try {
         const response = await axios.request(options);
-        if ( response.data ){
-            socketIO.getInstance().emit('submit_daily_data', JSON.stringify(response.data[`Time Series (${val}min)`]));
+        const period = `Time Series (${response.data['Meta Data']['4. Interval']})`;
+        const period_id = await services.stockService.GetPeriodIdWithName(period);
+        const lastdate = await services.stockService.GetLastDate(period_id);
+        const data = response.data[period];
+        const temp = Object.keys(data).map(key => {
+            if ( !lastdate || (lastdate && key > lastdate) ) {
+                return {
+                    period_id : period_id,
+                    date: key,
+                    open : data[key]['1. open'],
+                    high : data[key]['2. high'],
+                    low : data[key]['3. low'],
+                    close : data[key]['4. close'],
+                    volume : data[key]['5. volume']
+                }
+            }
+        }).filter(val => {
+            if ( !val ) return false;
+            return true;
+        });
+        if ( temp.length ) {
+            if ( services.stockService.SaveStockSeries(temp) ){
+                socketIO.getInstance().emit('submit_daily_data', JSON.stringify(temp));
+            }
         }
     } catch (error) {
         console.error(error);
@@ -48,7 +71,6 @@ const getTimeSeriesIntraday = async(val) => {
 }
 const circleReq = {
     init:()=>{
-        getTimeSeriesIntraday(15);
         cron.schedule('*/15 * * * *', () => {
             var d = new Date();
             console.log(`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);

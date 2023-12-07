@@ -1,6 +1,9 @@
 const User = require('./User');
-const Vulve = require('./Vulve');
+const Stockdata = require('./Stockdata');
+const Stockperiod = require('./Stockperiod');
+
 module.exports = {
     User,
-    Vulve
+    Stockdata,
+    Stockperiod
 }
