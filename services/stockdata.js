@@ -22,10 +22,8 @@ const GetPeriods = async() => {
     return await stockperiod.find({});
 }
 
-const GetSeries = async(period_id, c_year) => {
-    return await stockdata.find(
-        { period_id:period_id, date: { "$regex": c_year, "$options": "i" } }
-    );
+const GetSeries = async(period_id) => {
+    return await stockdata.find({period_id:period_id}).sort({date:1});
 }
 
 const GetLastDate = async(period_id) => {

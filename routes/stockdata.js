@@ -17,9 +17,9 @@ router.get("/get_periods", async(req,response) => {
 });
 
 router.post("/get_series", async(req,response) => {
-    const {period_id, c_year} = req.body ;
+    const {period_id} = req.body ;
     try{
-        const data = await service.stockService.GetSeries(period_id, c_year);
+        const data = await service.stockService.GetSeries(period_id);
         return response.status(200).json(data);
     } catch(err){
         return response.status(400).json({

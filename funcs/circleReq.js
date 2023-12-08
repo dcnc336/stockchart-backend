@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cron = require('node-cron');
 const socketIO = require('./socketIO');
-const services = require('./../services')
+const services = require('./../services');
 
 
 /******************************************** daily options ****************************************************/ 
