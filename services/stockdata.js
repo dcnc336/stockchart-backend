@@ -38,7 +38,23 @@ const GetPeriodWithID = async(_id) => {
 }
 
 const GetPeriods = async() => {
-    return await stockperiod.find({});
+    const stocktypes = await stocktype.find({});
+    if ( !stocktypes ){
+        return {
+            stocktypes : stocktypes,
+            stockperiods: []
+        }
+    } else {
+        const stockperiods = await stockperiod.find({symbol_id: stocktypes[0]['_id']});
+        return {
+            stocktypes: stocktypes,
+            stockperiods: stockperiods
+        }
+    }
+}
+
+const GetPeriodsWithSymbolID = async(symbol_id) => {
+    return await stockperiod.find({symbol_id: symbol_id});
 }
 
 const GetSeries = async(period_id) => {
@@ -75,6 +91,7 @@ module.exports = {
     GetPeriodIdWithName,
     GetPeriodWithID,
     GetPeriods,
+    GetPeriodsWithSymbolID,
     GetSeries,
     GetLastDate,
     UpdateLastDate,

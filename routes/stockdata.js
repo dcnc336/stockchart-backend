@@ -16,6 +16,22 @@ router.get("/get_periods", async(req,response) => {
     } 
 });
 
+router.post("/get_periods", async(req, response) => {
+    const {symbol_id} = req.body;
+    console.log(symbol_id);
+    try {
+        const data = await service.stockService.GetPeriodsWithSymbolID(symbol_id);
+        return response.status(200).json(data);
+    } catch (err) {
+        return response.status(400).json({
+            statusCode: 400,
+            message: "Server Error: Please try again",
+            error : "Bad Request"
+        })
+    }
+    
+});
+
 router.post("/get_series", async(req,response) => {
     const {period_id} = req.body ;
     try{

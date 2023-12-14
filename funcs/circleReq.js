@@ -218,23 +218,23 @@ const circleReq = {
         // cron.schedule('*/15 * * * *', () => {
         //     var d = new Date();
         //     console.log(`15min-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
-        //     getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "15min", '2023-11');
+        //     getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "15min", `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`);
         // });
-        // cron.schedule('*/30 * * * *', () => {
-        //     var d = new Date();
-        //     console.log(`30min-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
-            getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "30min", '2023-11');
-        // });
-                        // cron.schedule('*/60 * * * *', () => {
-                        //     var d = new Date();
-                        //     console.log(`60min-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
-                        //     getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "60min", '2023-11');
-                        // });
-                        // cron.schedule('0 1 * * *', () => {
-                        //     var d = new Date();
-                        //     console.log(`daily-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
-                        //     getTimeSeriesIntraday("TIME_SERIES_DAILY", "MSFT");
-                        // });
+        cron.schedule('*/30 * * * *', () => {
+            var d = new Date();
+            console.log(`30min-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
+            getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "30min", `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`);
+        });
+        cron.schedule('*/60 * * * *', () => {
+            var d = new Date();
+            console.log(`60min-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
+            getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "60min", `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`);
+        });
+        cron.schedule('0 1 * * *', () => {
+            var d = new Date();
+            console.log(`daily-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
+            getTimeSeriesIntraday("TIME_SERIES_DAILY", "MSFT");
+        });
         // var i = 0;
         // const historic = setInterval(() => {
         //     console.log(i);
