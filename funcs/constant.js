@@ -11,6 +11,94 @@ const c_stocktype = [
     }
 ];
 
+const c_stockperiod = [
+    {
+        type: 1,
+        catecory: 'MINUTES',
+        name: 'Time Series (1min)',
+        label: '1 minute',
+        abbr: '1m'
+    },
+    {
+        type: 1,
+        catecory: 'MINUTES',
+        name: 'Time Series (5min)',
+        label: '5 minutes',
+        abbr: '5m'
+    },
+    {
+        type: 1,
+        catecory: 'MINUTES',
+        name: 'Time Series (15min)',
+        label: '15 minutes',
+        abbr: '15min'
+    },
+    {
+        type: 1,
+        catecory: 'MINUTES',
+        name: 'Time Series (30min)',
+        label: '30 minutes',
+        abbr: '30min'
+    },
+    {
+        type: 2,
+        catecory: 'HOURS',
+        name: 'Time Series (60min)',
+        label: '1 hour',
+        abbr: '1h'
+    },
+    {
+        type: 2,
+        catecory: 'HOURS',
+        name: 'Time Series (120min)',
+        label: '2 hours',
+        abbr: '2h'
+    },
+    {
+        type: 2,
+        catecory: 'HOURS',
+        name: 'Time Series (180min)',
+        label: '3 hours',
+        abbr: '3h'
+    },
+    {
+        type: 2,
+        catecory: 'HOURS',
+        name: 'Time Series (240min)',
+        label: '4 hours',
+        abbr: '4h'
+    },
+    {
+        type: 3,
+        catecory: 'DAYS',
+        name: 'Time Series (Daily)',
+        label: '1 day',
+        abbr: '1d'
+    },
+    {
+        type: 3,
+        catecory: 'DAYS',
+        name: 'Weekly Time Series',
+        label: '1 week',
+        abbr: '1w'
+    },
+    {
+        type: 3,
+        catecory: 'DAYS',
+        name: 'Monthly Time Series',
+        label: '1 month',
+        abbr: '1M'
+    },
+    {
+        type: 3,
+        catecory: 'DAYS',
+        name: '',
+        label: '3 month',
+        abbr: '3M'
+    }
+];
+
 module.exports = {
-    c_stocktype
+    c_stocktype,
+    c_stockperiod
 }

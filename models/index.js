@@ -3,7 +3,7 @@ const Stockdata = require('./Stockdata');
 const StockdataDaily = require('./StockdataDaily');
 const Stocktype = require('./Stocktype');
 const Stockperiod = require('./Stockperiod');
-const createDynamicModel = require('./createDynamicModel');
+const PeriodName = require('./PeriodName');
 
 module.exports = {
     User,
@@ -11,5 +11,5 @@ module.exports = {
     StockdataDaily,
     Stocktype,
     Stockperiod,
-    createDynamicModel
+    PeriodName
 }

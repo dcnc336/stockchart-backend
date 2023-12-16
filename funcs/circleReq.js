@@ -84,7 +84,7 @@ const getTimeSeriesIntraday = async(function_name, symbol_name , period='', mont
             url = `${process.env.AlphaVantage_Api_Host}function=${function_name}&symbol=${symbol_name}&outputsize=full&apikey=${process.env.AlphaVantage_Api_Key}`;
             break;
         case 'TIME_SERIES_WEEKLY':
-            url = `${process.env.AlphaVantage_Api_Host}function=${function_name}&symbol=${symbol_name}&apikey=${process.env.AlphaVantage_Api_Key}`;
+            url = `${process.env.AlphaVantage_Api_Host}function=${function_name}&symbol=${symbol_name}&outputsize=full&apikey=${process.env.AlphaVantage_Api_Key}`;
             break;
         case 'TIME_SERIES_MONTHLY':
             url = `${process.env.AlphaVantage_Api_Host}function=${function_name}&symbol=${symbol_name}&apikey=${process.env.AlphaVantage_Api_Key}`;
@@ -114,7 +114,7 @@ const getTimeSeriesIntraday = async(function_name, symbol_name , period='', mont
                     period = 'Weekly Time Series';
                     break;
                 case 'TIME_SERIES_MONTHLY':
-                    period = '';
+                    period = 'Monthly Time Series';
                     break;
                 default:
                     break;
@@ -215,15 +215,15 @@ getHistoricData = async(function_name, symbol, period, month ) => {
 
 const circleReq = {
     init:()=>{
-        // cron.schedule('*/15 * * * *', () => {
-        //     var d = new Date();
-        //     console.log(`15min-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
-        //     getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "15min", `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`);
-        // });
+        cron.schedule('*/15 * * * *', () => {
+            var d = new Date();
+            console.log(`15min-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
+            getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "15min", `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`);
+        });
         cron.schedule('*/30 * * * *', () => {
             var d = new Date();
             console.log(`30min-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
-            getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "30min", `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`);
+            getTimeSeriesIntraday("TIME_SERIES_INTRADAY", "MSFT", "15min", `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`);
         });
         cron.schedule('*/60 * * * *', () => {
             var d = new Date();
@@ -235,10 +235,18 @@ const circleReq = {
             console.log(`daily-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
             getTimeSeriesIntraday("TIME_SERIES_DAILY", "MSFT");
         });
+        cron.schedule('0 0 * * 0', () => {
+            var d = new Date();
+            console.log(`daily-${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
+            getTimeSeriesIntraday("TIME_SERIES_WEEKLY", "MSFT");
+        });
+        cron.schedule('0 0 1 * *', () => {
+            getTimeSeriesIntraday("TIME_SERIES_MONTHLY", "MSFT");
+        });
         // var i = 0;
         // const historic = setInterval(() => {
         //     console.log(i);
-        //     console.log(monthArray[i]);
+        //     console.log(monthArray[i])
         //     if ( i >= monthArray.length ) {
         //         clearInterval(historic);
         //         return;

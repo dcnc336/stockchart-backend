@@ -1,8 +1,16 @@
 const Model = require("./../models");
 const stockdata = Model.Stockdata;
-const stockdata_daily = Model.StockdataDaily;
+const periodname = Model.PeriodName;
 const stockperiod = Model.Stockperiod;
 const stocktype = Model.Stocktype;
+
+const InsertPeriodName = async({name, label}) => {
+    const periodone = periodname.find({name:name, label: label});
+    if ( periodname.length > 0 ) return false;
+    const newperiod = new periodname({name: name, label: label});
+    newperiod.save();
+    return newperiod;
+}
 
 const GetSymbolIDWithName = async(name) => {
     const record = await stocktype.find({name: name});
@@ -18,6 +26,13 @@ const GetSymbolIDWithName = async(name) => {
 
 const GetSymbolWithID = async(_id) => {
     return await stocktype.findById(_id);
+}
+
+const GetSymbolsWithSearch = async(search) => {
+    if ( search.trim().length == 0 ){
+        return await stocktype.find({});
+    }
+    return await stocktype.find({name: {$regex:search, $options: 'i'}});
 }
 
 const GetPeriodIdWithName = async(symbol_id, period_name) => {
@@ -37,24 +52,16 @@ const GetPeriodWithID = async(_id) => {
     return await stockperiod.findById(_id);
 }
 
-const GetPeriods = async() => {
-    const stocktypes = await stocktype.find({});
-    if ( !stocktypes ){
-        return {
-            stocktypes : stocktypes,
-            stockperiods: []
-        }
-    } else {
-        const stockperiods = await stockperiod.find({symbol_id: stocktypes[0]['_id']});
-        return {
-            stocktypes: stocktypes,
-            stockperiods: stockperiods
-        }
-    }
+const GetStocktypes = async() => {
+    return await stocktype.find({});
 }
 
-const GetPeriodsWithSymbolID = async(symbol_id) => {
-    return await stockperiod.find({symbol_id: symbol_id});
+const GetPeriodIDWithSymbolID = async(symbol_id, period_name) => {
+    const period = await stockperiod.find({symbol_id: symbol_id, period_name: period_name});
+    if ( period.length > 0 ) {
+        return period[0]['_id'].toString();
+    }
+    return null;
 }
 
 const GetSeries = async(period_id) => {
@@ -86,12 +93,14 @@ const SaveStockSeries = async(datarows) => {
 }
 
 module.exports = {
+    InsertPeriodName,
     GetSymbolIDWithName,
     GetSymbolWithID,
+    GetSymbolsWithSearch,
     GetPeriodIdWithName,
     GetPeriodWithID,
-    GetPeriods,
-    GetPeriodsWithSymbolID,
+    GetStocktypes,
+    GetPeriodIDWithSymbolID,
     GetSeries,
     GetLastDate,
     UpdateLastDate,
