@@ -3,6 +3,7 @@ const stockdata = Model.Stockdata;
 const periodname = Model.PeriodName;
 const stockperiod = Model.Stockperiod;
 const stocktype = Model.Stocktype;
+const indicator = Model.Indicator;
 
 const InsertPeriodName = async({name, label}) => {
     const periodone = periodname.find({name:name, label: label});
@@ -92,6 +93,22 @@ const SaveStockSeries = async(datarows) => {
     return true;
 }
 
+/**************************************** Indicator Model Part ***********************************************/
+
+const SaveIndicators = async(key, row) => {
+    const one = await indicator.find({type: key, name: row.name});
+    if ( one.length > 0 ) return false;
+    const newIndicator = new indicator({type: key, name: row.name, level: row.level, likes: row.likes});
+    newIndicator.save();
+    return true;
+}
+
+const GetIndicators = async() => {
+    const indicators = await indicator.find().sort({level: 'asc'});
+    return indicators;
+}
+/**************************************** End Indicator Model Part ***********************************************/
+
 module.exports = {
     InsertPeriodName,
     GetSymbolIDWithName,
@@ -105,4 +122,6 @@ module.exports = {
     GetLastDate,
     UpdateLastDate,
     SaveStockSeries,
+    SaveIndicators,
+    GetIndicators
 }

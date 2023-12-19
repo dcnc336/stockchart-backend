@@ -4,6 +4,7 @@ const StockdataDaily = require('./StockdataDaily');
 const Stocktype = require('./Stocktype');
 const Stockperiod = require('./Stockperiod');
 const PeriodName = require('./PeriodName');
+const Indicator = require('./Indicator');
 
 module.exports = {
     User,
@@ -11,5 +12,6 @@ module.exports = {
     StockdataDaily,
     Stocktype,
     Stockperiod,
-    PeriodName
+    PeriodName,
+    Indicator
 }

@@ -98,7 +98,81 @@ const c_stockperiod = [
     }
 ];
 
+const indicator_type = {
+    moments : [
+        {
+            name: "Mean",
+            likes: 267,
+            level: 0
+        },
+        {
+            name: "Median",
+            likes: 213,
+            level: 0
+        },
+        {
+            name: "Median Absolute Deviation",
+            likes: 126,
+            level: 0
+        },
+        {
+            name: "Variance",
+            likes: 65,
+            level: 0
+        },
+        {
+            name: "Skewness",
+            likes: 98,
+            level: 0
+        },
+        {
+            name: "Kurtosis",
+            likes: 667,
+            level: 0
+        }
+    ],
+    complexity : [
+        {
+            name: "Entropy",
+            likes: 265,
+            level: 1
+        },
+        {
+            name: "Approximate Entropy",
+            likes: 85,
+            level: 1
+        },
+        {
+            name: "Permutation Entropy",
+            likes: 167,
+            level: 1
+        }
+    ],
+    similarity : [
+        {
+            name: 'Cosine Similarity',
+            likes: 356,
+            level: 2
+        }
+    ],
+    volatility : [
+        {
+            name: 'Volatility Rank',
+            likes : 169,
+            level: 3
+        }
+    ],
+    models : [
+        {
+            name: 'Hidden Markov Model',
+            likes: 209,
+            level: 4
+        }
+    ],
+}
+
 module.exports = {
     c_stocktype,
-    c_stockperiod
+    c_stockperiod,
+    indicator_type
 }

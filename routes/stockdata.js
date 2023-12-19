@@ -5,8 +5,12 @@ const service = require('./../services');
 
 router.get("/get_periods", async(req,response) => {
     try{
-        const data = await service.stockService.GetStocktypes();
-        return response.status(200).json(data);
+        const stocktypes = await service.stockService.GetStocktypes();
+        const indicators = await service.stockService.GetIndicators();
+        return response.status(200).json({
+            stocktype: stocktypes,
+            indicator: indicators
+        });
     } catch(err){
         return response.status(400).json({
             statusCode: 400,

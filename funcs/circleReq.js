@@ -2,7 +2,9 @@ const axios = require('axios');
 const cron = require('node-cron');
 const socketIO = require('./socketIO');
 const services = require('./../services');
-var request = require('request');
+const request = require('request');
+const {indicator_type} = require('./constant');
+
 
 
 /******************************************** daily options ****************************************************/ 
@@ -213,6 +215,15 @@ getHistoricData = async(function_name, symbol, period, month ) => {
 //     '2023-01','2023-02','2023-03','2023-04','2023-05','2023-06','2023-07','2023-08','2023-09','2023-10','2023-11','2023-12',
 // ];
 
+const initialize = () => {
+    // Object.keys(indicator_type).map( async(key) => {
+    //     const indicators = indicator_type[key];
+    //     indicators.map( async(one) => {
+    //         await services.stockService.SaveIndicators(key, one);
+    //     });
+    // });
+}
+
 const circleReq = {
     init:()=>{
         cron.schedule('*/15 * * * *', () => {
@@ -256,6 +267,7 @@ const circleReq = {
         //     }
         //     i += 1;
         // },30000);
+        initialize();
     }
 }
 
