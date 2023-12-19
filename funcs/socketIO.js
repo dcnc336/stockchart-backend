@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const socket = {
     init: (http) => {
         const socketIO =  require('socket.io')(http,{

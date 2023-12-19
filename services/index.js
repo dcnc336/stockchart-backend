@@ -1,7 +1,7 @@
-const vulveService = require("./vulve");
 const userService = require("./user");
+const stockService = require('./stockdata');
 
 module.exports = {
-    vulveService,
-    userService
+    userService,
+    stockService
 }
